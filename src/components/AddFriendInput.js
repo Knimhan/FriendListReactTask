@@ -6,14 +6,27 @@ class AddFriendInput extends Component {
 
   render () {
     return (
+      <div>
+
       <input
         type="text"
         autoFocus="true"
         className={classnames('form-control', styles.addFriendInput)}
         placeholder="Type the name of a friend"
         value={this.state.name}
-        onChange={this.handleChange.bind(this)}
-        onKeyDown={this.handleSubmit.bind(this)} />
+        onChange={this.handleChange.bind(this)}/>
+
+      <div onChange={this.setGender.bind(this)} className={classnames('form-control', styles.addFriendInput)}>
+        <input type="radio" value="Male" name="gender" checked={this.state.gender === 'Male'} /> Male
+
+        <input type="radio" value="Female" name="gender" checked={this.state.gender === 'Female'} /> Female
+      </div>
+
+      <button className={classnames('form-control btn btn-primary', styles.addFriendInput)} onClick={this.handleSubmit.bind(this)}>
+        Add
+      </button>
+
+      </div>
     );
   }
 
@@ -21,6 +34,7 @@ class AddFriendInput extends Component {
     super(props, context);
     this.state = {
       name: this.props.name || '',
+      gender: this.props.gender || 'Male'
     };
   }
 
@@ -29,11 +43,12 @@ class AddFriendInput extends Component {
   }
 
   handleSubmit (e) {
-    const name = e.target.value.trim();
-    if (e.which === 13) {
-      this.props.addFriend(name);
-      this.setState({ name: '' });
-    }
+      this.props.addFriend(this.state.name,this.state.gender);
+      this.setState({ name: '', gender: 'Male' });
+  }
+
+  setGender(event) {
+  this.setState({ gender: event.target.value});
   }
 
 }
