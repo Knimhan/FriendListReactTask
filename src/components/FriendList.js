@@ -6,27 +6,28 @@ class FriendList extends Component {
   render () {
     //Pagination
     const friendsPage = this.props.friends;
-    const per_page = 2;
-    const pages = Math.ceil(friendsPage.length / per_page);
-    const start_offset = (this.state.activePage - 1) * per_page;
-    let start_count = 0;
+    const friendsPerPage = 2;
+    const pages = Math.ceil(friendsPage.length / friendsPerPage);
+    const startOffset = (this.state.activePage - 1) * friendsPerPage;
+    let startCount = 0;
 
     return (
       <div>
       <ul className={styles.friendList}>
         {
           this.props.friends.map((friend, index) => {
-            if (index >= start_offset && start_count < per_page) {
-              start_count++;
+            if (index >= startOffset && startCount < friendsPerPage) {
+              startCount++;
               return (
                 <FriendListItem
                   key={index}
                   id={index}
                   name={friend.name}
+                  gender={friend.gender}
                   starred={friend.starred}
                   {...this.props.actions} />
               );
-            } 
+            }
           })
         }
       </ul>
@@ -47,7 +48,6 @@ class FriendList extends Component {
 
   handleSelect(eventKey) {
     this.setState({activePage: eventKey});
-    //fetch next pages
   }
 }
 
