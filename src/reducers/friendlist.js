@@ -4,14 +4,27 @@ const initialState = {
   friendsById: [
     {
       name: 'Theodore Roosevelt',
+      gender: 'Male',
+      starred: true
+    },
+    {
+      name: 'Oprah Winfrey',
+      gender: 'Female',
       starred: true
     },
     {
       name: 'Abraham Lincoln',
+      gender: 'Male',
       starred: false
     },
     {
       name: 'George Washington',
+      gender: 'Male',
+      starred: false
+    },
+    {
+      name: 'Ellen Degeneres',
+      gender: 'Female',
       starred: false
     }
   ]
@@ -25,7 +38,8 @@ export default function friends(state = initialState, action) {
         friendsById: [
           ...state.friendsById,
           {
-            name: action.name
+            name: action.name,
+            gender: action.gender
           }
         ],
       };
